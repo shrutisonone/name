@@ -182,3 +182,33 @@ void merge(int* arr1, int* arr2, int n, int m)
         }
     }
 }
+//Kadane’s Algorithm 
+1) 3 for loops two for iterating and one for keeping max can be reduced to 2 for loops by keeping max in the 2nd for loop O(n^2)
+2) local max and global max O(n)
+
+int maxSubArray(vector<int>& nums) {
+        int ls=nums[0];
+        int gs=nums[0];
+        
+        for(int i=1;i<nums.size();i++)
+        {
+            ls=max(nums[i], ls+nums[i]);
+            gs=max(ls, gs);
+        }
+        return gs;
+        
+    }
+int maxSubArray(vector<int>& nums) {
+        int sum=0;
+        int maxi=INT_MIN;
+        for(auto it:nums){
+            sum+=it;
+            maxi=max(sum, maxi);
+            if(sum<0)
+            {
+                sum=0;
+            }
+        }
+        return maxi;
+    }
+//Merge Overlapping Subintervals
