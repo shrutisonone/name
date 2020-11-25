@@ -212,3 +212,26 @@ int maxSubArray(vector<int>& nums) {
         return maxi;
     }
 //Merge Overlapping Subintervals
+1) Apply Brute Force such that compare each interval with everyone and then merge accordingly
+2) sort out the interval and then compare each with the next one and then merge it
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>>mergedIntervals;
+        if(intervals.size()==0){
+            return mergedIntervals;
+        }
+
+        sort(intervals.begin(), intervals.end());
+        vector<int>tempInterval=intervals[0];
+
+        for(auto it:intervals){
+            if(it[0]<=tempInterval[1]){
+                tempInterval[1]=max(it[1], tempInterval[1]);
+            }
+            else{
+                mergedIntervals.push_back(tempInterval);
+                tempInterval=it;
+            }
+        }
+        mergedIntervals.push_back(tempInterval);
+        return mergedIntervals;
+    }
