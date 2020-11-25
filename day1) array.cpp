@@ -235,3 +235,31 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
         mergedIntervals.push_back(tempInterval);
         return mergedIntervals;
     }
+
+//Set Matrix Zeros 
+1)take one more 2d matrix and then make the respective positions as zero as per zeros in the given matrix mark the zeros in the resultant matrix
+2)take a 1d array to keep track of the zeros in the particular index and mark that zero in the respective extra row and column matrix and then after that reflect it
+ in the 2d matrix
+3) don't take the extra arrays for row and column but instead keep the first row and column to keep track and to avoid mistake use 
+   col =false variable to keep track that it doesn't mark the extra zeros and remember to traverse from the last for  the marking
+	
+void setZeroes(vector<vector<int>>& matrix) {
+int col0=1;
+int rows=matrix.size();
+int cols=matrix[0].size();
+
+for(int i=0;i<rows;i++){
+    if(matrix[i][0]==0)col0=0;
+    for(int j=1;j<cols;j++)
+        if(matrix[i][j]==0)
+            matrix[i][0]=matrix[0][j]=0;
+}
+
+for(int i=rows-1;i>=0;i--){
+    for(int j=cols-1;j>=1;j--)
+        if(matrix[i][0]==0 || matrix[0][j]==0)
+            matrix[i][j]=0;
+        if(col0==0)matrix[i][0]=0;
+}
+}
+	
