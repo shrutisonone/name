@@ -263,3 +263,25 @@ for(int i=rows-1;i>=0;i--){
 }
 }
 	
+//Pascal Triangle
+1) calculate r-1
+		C
+		 c-1 to get the value of the particular index
+2) If need to calculate a sequence of line then e.g for the 4th row 4   4   4      ........
+								     C   C   C
+								      0   1    2
+
+vector<vector<int>> generate(int numRows) 
+{
+        vector<vector<int>>r(numRows);
+        for(int i=0;i<numRows;i++)
+        {
+            r[i].resize(i+1);//Number of Rows =Number of Columns
+            r[i][0]=r[i][i]=1;
+            
+            for(int j=1;j<i;j++)
+                r[i][j]=r[i-1][j-1]+r[i-1][j];
+        }
+        return r;
+}
+			
