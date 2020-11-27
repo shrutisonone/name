@@ -379,4 +379,35 @@ int merge(int arr[], int temp[], int left,
 } 
 
 //Stock Buy And Sell
+1) Brute Force
+2)
+ int maxProfit(vector<int>& prices) {
+        int maxPro=0;
+        int minPrice=INT_MAX;
+        for(int i=0;i<prices.size();i++)
+        {
+            minPrice=min(minPrice, prices[i]);
+            maxPro=max(maxPro, prices[i]-minPrice);
+        }
+        return maxPro;
+    }
 
+//Rotate Matrix
+1) Take Another Matrix and then put into it as if the output but it would need extra space 
+2) Transpose and then reverse column
+void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                swap(matrix[i][j], matrix[j][i]);
+            }
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            reverse(matrix[i].begin(), matrix[i].end());
+        }
+    }
