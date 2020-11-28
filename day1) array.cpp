@@ -411,3 +411,51 @@ void rotate(vector<vector<int>>& matrix) {
             reverse(matrix[i].begin(), matrix[i].end());
         }
     }
+//Search in 2D Matrix
+1) Simple Brute Force approach just compare all the elements in matrix by iterating
+2) Binary Search start from end of the first Row i.e. the last element of the first row
+ bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int i=0;
+        int j=m-1;
+
+        while(i<n && j>=0)
+        {
+            if(matrix[i][j]==target){
+               // cout<<"Found at"<<i<<", "<<j;
+                return 1;
+            }
+            if(matrix[i][j]>target)
+            j--;
+            else
+            i++;
+        }
+    }
+    
+3) Use the technique to find the index of the matrix and use smart binary search
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        if(!matrix.size())return false;
+        int n=matrix.size();
+        int m=matrix[0].size();
+
+        int lo=0;
+        int hi=(n*m)-1;
+
+        while(lo<=hi)
+        {
+            int mid=(lo+(hi-lo)/2);
+            if(matrix[mid/m][mid%m]==target){
+            return true;
+            }
+            
+            if(matrix[mid/m][mid%m]<target){
+            lo=mid+1;
+            }
+            else{
+            hi=mid-1;
+            }
+        }
+        return false;
+            }
