@@ -459,3 +459,86 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
         }
         return false;
             }
+//pow(x, n)
+1) just multiply the number by number of times the power is till it becomes zero so the complexity would become O(n)
+2) If n is even then x=x*x and then n=n/2
+   If n is odd then ans=ans*x and then n=n-1
+double myPow(double x, int n) {
+        double ans=1.0;
+        long long nn=n;
+        if(nn<0) nn=-1*nn;
+
+        while(nn)
+        {
+            if(nn%2){
+                ans=ans*x;
+                nn=nn-1;
+            }
+            else
+            {
+                x=x*x;
+                nn=nn/2;
+            }
+        }
+        if(n<0)
+        ans=(double)(1.0) / (double)(ans);
+        return ans;
+    }
+//Majority Element >n/2 times
+1) Brute Force O(n^2)
+2) Hashing or Frequency Array then in O(n) but extra space so more optimization needed
+3) Moore Voting Algorithm intution is frequency of a majority element is equal to the minority element
+ int majorityElement(vector<int>& nums) {
+        int count=0;
+        int candidate =0;
+        for(int num: nums){
+            if(count==0){
+                candidate=num;
+            }
+            if(num==candidate) count+=1;
+            else count-=1;
+        }
+        return candidate;
+    }
+ // Majority Element >n/3 times
+ optimized one using Boyer Moore 
+ vector<int> majorityElement(vector<int>& nums) {
+        int sz=nums.size();
+        int num1=-1, num2=-1,count1=0, count2=0,i;
+        for(i=0;i<sz;i++)
+        {
+            if(nums[i]==num1)
+            count1++;
+            else if (nums[i]==num2)
+            count2++;
+            else if(count1==0)
+            {
+                num1=nums[i];
+                count1=1;
+            }
+            else if(count2==0)
+            {
+                num2=nums[i];
+                count2=1;
+            }
+            else
+            {
+                count1--;
+                count2--;
+            }
+        }
+        vector<int>ans;
+        count1=count2=0;
+        for(i=0;i<sz;i++)
+        {
+            if(nums[i]==num1)
+            count1++;
+            else if(nums[i]==num2)
+            count2++;
+        }
+        if(count1>sz/3)
+        ans.push_back(num1);
+        if(count2>sz/3)
+        ans.push_back(num2);
+        return ans;
+    }
