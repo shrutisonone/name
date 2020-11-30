@@ -542,3 +542,43 @@ double myPow(double x, int n) {
         ans.push_back(num2);
         return ans;
     }
+    
+//Unique Path
+1) recursive call for bottom and Right Index and for optimal use memoziation problem
+int countpaths(int i, int j, int n, int m)
+{
+    if(i==(n-1) && j==(m-1))
+    return 1;
+    if(i>=n || j>=m)
+    return 0;
+    else
+    return countpaths(i+1, j)+countpaths(i, j+1);
+}
+// using dp
+
+int countpaths(int i, int j, int n, int m)
+{
+    if(i==(n-1) && j==(m-1))
+    return 1;
+    if(i>=n || j>=m)
+    return 0;
+    if(dp[i][j]!=-1) return dp[i][j];
+    else return countpaths(i+1, j, dp)+countpaths(i, j+1, dp);
+}
+//Efficent using ncr 
+//Total blocks to be traversed is (n+m-2) and then 
+(n+m-2)         (n+m-2)
+	C              C
+	 n-1            m-1
+		
+ int uniquePaths(int m, int n) {
+        int N=n+m-2;
+        int r=m-1;
+
+        double res=1;
+
+        for(int i=1;i<=r;i++)
+            res=res* (N-r+i)/i;
+
+        return (int)res;
+    }
