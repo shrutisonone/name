@@ -582,3 +582,73 @@ int countpaths(int i, int j, int n, int m)
 
         return (int)res;
     }
+
+
+//2 Sum
+//1) Sort the array and then have two for loops and then check if the sum of the two number is equal to target sum if there then print the i and j value and break O(n^2)
+//2) Sort Take one pointer to left and one to right and then check if the sum is equal to target sum or not if sum is less than target sum
+// then move the left pointer forward and if the sum is greater than target sum move right pointer backward6
+//3) using Hashing in O(n) take thefirst number if the (target sum-nums[i]) is there in the hashmap then return both index else traverse till the end of array
+vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int>ans;
+        unordered_map<int, int>mp;
+        
+        for(int i=0;i<nums.size();i++){
+            if(mp.find(target-nums[i])!=mp.end()){
+                ans.push_back(mp[target-nums[i]]);
+                ans.push_back(i);
+                return ans;
+            }
+            mp[nums[i]]=i;
+        }
+        return ans;
+    }
+
+//4 sum problem
+//1) brute force O(n^4)
+//2) sort and then use hashmap and then check like 2 sum but O(n^3)+O(nlogn) and space O(n)
+//3) sort take i and j put j=i+1 and then use left and right pointer for getting the value of remaining sum O(n^3) and space O(1)
+ vector<vector<int>> fourSum(vector<int>& num, int target) {
+        vector<vector<int>>res;
+        if(num.empty()) return res;
+
+
+        int n=num.size();
+        sort(num.begin(), num.end());
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int target_2=target-num[j]-num[i];
+                int front=j+1;
+                int back=n-1;
+
+                while(front < back)
+                {
+                    int two_sum=num[front]+num[back];
+                    if(two_sum<target_2) front++;
+                    else if(two_sum>target_2) back--;
+                    else
+                    {
+                        vector<int>quadruplet(4, 0);
+                        quadruplet[0]=num[i];
+                        quadruplet[1]=num[j];
+                        quadruplet[2]=num[front];
+                        quadruplet[3]=num[back];
+                        res.push_back(quadruplet);
+
+                        while(front<back && num[front]==quadruplet[2]) ++front;
+                        while(front<back && num[back]==quadruplet[3]) --back;
+                    }
+                }
+                while(j+1<n && num[j+1]==num[j]) ++j;
+            }
+            while(i+1<n && num[i+1]==num[i]) ++i;
+        }
+        return res;
+    }
+
+//
+
+
