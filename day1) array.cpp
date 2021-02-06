@@ -649,6 +649,91 @@ vector<int> twoSum(vector<int>& nums, int target) {
         return res;
     }
 
-//
+//Longest Consecutive Sequence 
+//Sort the array and then just check the difference if 1 is the difference then increment the count and iterate further and keep track of count
+//Efficient is to put that all in the hashset and then iterate over the array and check ofr the one lesser than it 
+e.g 102 1 100 101 2 3 4
+	//then if 102 then if 101 exist then do not do any thing if not exist consider it as root and then and then increment by one and then keep track of count
+	 int longestConsecutive(vector<int>& nums) {
+        
+        set<int>hashset;
+        for(int num:nums)
+        {
+            hashset.insert(num);  //insert every element into the hashset
+        }
+        
+        int cnt=0;
+        for(int num : nums){
+            if(!hashset.count(num-1))  //if less than that number does not exist then we got the root
+            {
+                int currnum=num;
+                int currcnt=1;
+                
+                while(hashset.count(currnum+1))  //check for the further series ans then increment value of currnum and currcnt
+                {
+                    currnum++;
+                    currcnt++;
+                }
+                cnt=max(cnt, currcnt);
+            }
+        }
+        return cnt;
+    }
+
+//Largest subarray with 0 sum 
+//just run the two for loop and then check if the sum is zero  but n^2 so use map to reduce to O(n)
+int maxLen(int arr[], int n) 
+{ 
+    // Initialize result 
+    int max_len = 0;  
+  
+    // Pick a starting point 
+    for (int i = 0; i < n; i++) { 
+  
+        // Initialize currr_sum for 
+        // every starting point 
+        int curr_sum = 0; 
+  
+        // try all subarrays starting with 'i' 
+        for (int j = i; j < n; j++) { 
+            curr_sum += arr[j]; 
+  
+            // If curr_sum becomes 0,  
+            // then update max_len 
+            // if required 
+            if (curr_sum == 0) 
+                max_len = max(max_len, j - i + 1); 
+        } 
+    } 
+    return max_len; 
+} 
+int maxLen(int a[], int n)
+{
+    // Your code here
+    map<int, int>mp;
+    int maxi=0;
+    int sum=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        sum+=a[i];
+        if(sum==0)
+        {
+            maxi=i+1;
+        }
+        else
+        {
+            if(mp.find(sum)!=mp.end())
+            {
+                maxi=max(maxi, i-mp[sum]);
+            }
+            else
+            {
+                mp[sum]=i;
+            }
+        }
+    }
+    return maxi;
+}
 
 
