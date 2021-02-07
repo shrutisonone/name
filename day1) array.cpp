@@ -737,4 +737,67 @@ int maxLen(int a[], int n)
 }
 //Count the number of subarrays having a given XOR
 //Navie Approach is to take two fro loops and then compare the xor is equal to given and then increment count in O(n^2)
-//Using Hash
+//Using Hashmap store that value i.e. similar to prefix XOR and then check for count of Y if Y ^ K=XR(XOR for prefix array) 
+
+[-------XR------------]	
+----------------------
+[----Y---][----K-----]
+
+//so count number of time Y that would be count of the subarray
+
+int Subarray_XOR(vector<int>&arr, int x)
+{
+	map<int , int>mp;
+	int cnt=0;
+	int xor=0;
+	for(auto it:arr)
+	{
+		xor=xor^it;
+		
+		if(xor==x)
+		{
+			cnt++;
+		}
+		if(mp.find(xor^x)!=mp.end())
+		{
+			cnt+=mp[xor^k];
+		}
+		mp[xor]+=1;
+	}
+	return cnt;
+}
+
+//Longest substring without repeat 
+//Navie approach is using two for loops and then check if any repeating charcter it would take O(n^3)  ----further optimized-->o(n^2)
+//O(2n) uisng set take two pointers left and right and then check if the current char exist in set or not if it does not exist put it in set and increment right pointer 
+//and if the current elemnet exist then increment the left pointer one by one upto the till that repeating character is not eleminated so to more optimized this solution use 
+//map that would store the element with index to keep track of the index so instead incrementing one by one the left pointer directly jump to the direct non repeating character
+ int lengthOfLongestSubstring(string s) {
+        
+        vector<int>mp(256, -1);
+        
+        int left=0;
+        int right=0;
+        int n=s.size();
+        int cnt=0;
+        
+        while(right<n){
+            if(mp[s[right]]!=-1)
+            {
+                left=max(left, mp[s[right]]+1);
+            }
+            mp[s[right]]=right;
+            cnt=max(cnt, right-left+1);
+            right++;
+        }
+        return cnt;
+        
+    }
+
+
+
+
+
+
+
+
