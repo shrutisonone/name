@@ -735,5 +735,6 @@ int maxLen(int a[], int n)
     }
     return maxi;
 }
-
-
+//Count the number of subarrays having a given XOR
+//Navie Approach is to take two fro loops and then compare the xor is equal to given and then increment count in O(n^2)
+//Using Hash
