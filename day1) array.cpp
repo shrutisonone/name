@@ -48,6 +48,7 @@ void sortColors(vector<int>& nums) {
         
     }
 //Repeating and Missing Number
+create the frequency array mark the element which are present then one of the element will have frequency 2 and another one woukd have 0 that would be repeating and missing number
 1) sort the array and then check difference between consecutive number if 1 then continue if 0 then repeating and then missing one calculate sum and then check
 2) sum of n numbers n(n+1)/2 and sum of the squares n(n+1)(2n+1)/6
    and then X-Y=certain value (where certain value is difference between sum of given array and the real array that needs to be) 
