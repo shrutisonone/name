@@ -761,7 +761,7 @@ int Subarray_XOR(vector<int>&arr, int x)
 		}
 		if(mp.find(xor^x)!=mp.end())
 		{
-			cnt+=mp[xor^k];
+			cnt+=mp[xor^x];
 		}
 		mp[xor]+=1;
 	}
