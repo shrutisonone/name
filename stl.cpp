@@ -432,3 +432,30 @@ int main() {
 
 	return 0;
 }
+
+/////////////////////////////////////////////////////////////STRING StREAM |||||||||??????????????/////////////
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string s="Bade Kaam Ka";
+    //getline(cin, s);
+    
+    stringstream ss(s);
+    string word;
+    int cnt=0;
+    
+    // while(ss>>word)
+    //     cnt++;
+        
+    // cout<<cnt<<endl;
+    
+    map<string , int>mp;
+    while(ss>>word)
+        mp[word]++;
+    for(auto i=mp.begin();i!=mp.end();i++)
+        cout<<i->first<<" "<<i->second<<endl;
+    
+    return 0;
+}
