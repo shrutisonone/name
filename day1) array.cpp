@@ -825,11 +825,54 @@ Node *reverse(Node *head)                                 1	1
 	curr->next=NULL;				  5	5____|	 //curr->next=NULL breaks the old links of the linked list
 							  |	|____|
 	return rest;					 NULL	NULL
-	
-	Node *
 }
 
+//Find the middle of linked list
+Navie solution to count the length and then divide by 2 and then handle the odd and even length accordingly i.e. according to question if length is even then which to retur first middle or second middle
+//optimised is with fast and slow pointers move them and if fast reaches NULL or fasts next is null the break;
 
+Node *findmiddle(Node *head)
+{
+	Node *f=head;
+	Node *s=head;
+	while(f!=NULL && f->next!=NULL)
+	{
+		f=f->next->next;
+		s=s->next;
+	}
+	return s;
+}
+//Merge Two sorted linked list
+Navie Solution is to take any data structure merge two into one and perform sort and then make a linked list of that sorted numbers
+//Optimised is to take two pointer l1 and l2 make sure that at start they are pointing to head and then and also the l1 will always be pointing to the smaller one
+//iterate till both l1 and l2 not equals to null and then inside take one more loop if l->val is greater in case then make tmp whihc is behind l1 make it to pint l2 and then swap l1 and l2
+
+Node *mergetwosortedlist(Node *l1, Node *l2)
+{
+	if(l1==NULL)
+	return l2;
+	
+	if(l2==NULL)
+	return l1;
+	
+	if(l1->data > l2->data)
+	swap(l1, l2);
+	
+	Node *res=l1;
+	Node *tmp;
+	
+	while(l1!=NULL && l2!=NULL)
+	{
+		while(l1!=NULL || l1->data < l2->data)
+		{
+			tmp=l1;
+			l1=l1->next;
+		}
+		tmp->next=l2;
+		swap(l1, l2);
+	}
+	return res;
+}
 
 
 
