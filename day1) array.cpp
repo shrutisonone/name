@@ -795,6 +795,39 @@ int Subarray_XOR(vector<int>&arr, int x)
         
     }
 
+//Reverse a Linked List
+
+Node *reverse(Node *head)
+{
+	Node *a=head;
+	Node *b=head;
+	Node c=NULL;
+	while(a!=NULL)
+	{
+		b=a->next;
+		a->next=c;
+		c=a;
+		a=b;
+	}
+	return c;
+}
+
+*Recurrsively 
+
+Node *reverse(Node *head)                                 1	1     
+{							  |	|____
+	Node *curr=head;				  2 	2____|
+	if(curr==NULL || curr->next==NULL)		  |	|____
+	return curr;					  3	3____|
+							  |	|____
+	Node *rest=reverse(curr->next);			  4	4____|
+	curr->next->next=curr;				  |	|    |   //encircle one are reverse pointers i.e. curr->next->next=curr;
+	curr->next=NULL;				  5	5____|	 //curr->next=NULL breaks the old links of the linked list
+							  |	|____|
+	return rest;					 NULL	NULL
+	
+	Node *
+}
 
 
 
