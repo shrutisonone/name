@@ -863,7 +863,7 @@ Node *mergetwosortedlist(Node *l1, Node *l2)
 	
 	while(l1!=NULL && l2!=NULL)
 	{
-		while(l1!=NULL && l1->data < l2->data)
+		while(l1!=NULL && l1->data <= l2->data)
 		{
 			tmp=l1;
 			l1=l1->next;
