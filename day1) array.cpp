@@ -874,7 +874,30 @@ Node *mergetwosortedlist(Node *l1, Node *l2)
 	return res;
 }
 
+//Remove nth node from end of linked list
+Navie Approach is to traverse a linked list count the nodes find length and then subtract it that node from end will be the length-kth from start and then traverse till the erailer node and then change the link
+//Optimised approach is to take two pointer fast and slow and then make fast pointer traverse first till n-1 and then travserse both fast and slow till fast next!=NULL and then change pointers
 
+Node *deletenthnodefromend(Node *head, int n)
+{
+	Node *f=head;
+	Node *s=head;
+	
+	for(int i=0;i<n;i++)
+	{
+		f=f->next;
+		if(f==NULL)
+		return head->next;
+	}
+	
+	while(f->next!=NULL)
+	{
+		f=f->next;
+		s=s->next;
+	}
+	s->next=s->next->next;
+	return head;
+}
 
 
 
