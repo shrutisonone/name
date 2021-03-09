@@ -898,6 +898,72 @@ Node *deletenthnodefromend(Node *head, int n)
 	s->next=s->next->next;
 	return head;
 }
+//Add Two Numbers Respresented by linked list start from the last and then add %10 to the new node and if there exist a carry propogate it
+
+Node *addtwolist(Node *l1, Node *l2)
+{
+	Node *res= new Node();
+	Node *tmp=res;
+	
+	int carry=0;
+	int sum=0;
+	
+	while(l1!=NULL || l2!=NULL || carry)
+	{
+		if(l1!=NULL){
+			sum+=l1->data;
+			l1=l1->next;
+		}
+		
+		if(l2!=NULL){
+			sum+=l2->dtaa;
+			l2=l2->next;
+		}
+		sum+=carry;
+		carry=sum/10;
+		Node *a=new Node(sum%10);
+		tmp->next=a;
+		tmp=tmp->next;
+	}
+	return res->next;
+}
+
+/////////////Intersection of Y Shaped Linked List
+One is two travserse through one and then check the other so n^2
+Optimised is to calculate the difference and then allow the longer one to traverse that nodes eariler and then start travserse both
+More Optimised Start both at one time and if any of them is NULL assign it to the start of anaother one
+int intersectionYShappedLinkedLists(Node *head1, Node *head2)
+{
+	Node *p=head1;
+	Node *q=head2;
+	
+	while(p!=q){
+		
+	p=p->next;
+	q=q->next;
+	
+	if(p==NULL)
+	p=head2;
+	
+	if(q==NULL)
+	q=head1;
+	}
+	return q->data;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
