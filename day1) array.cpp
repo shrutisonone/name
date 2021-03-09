@@ -951,8 +951,157 @@ int intersectionYShappedLinkedLists(Node *head1, Node *head2)
 	return q->data;
 }
 
+//Detect Loop in a linked list
+
+bool DetectLoop(Node *head)
+{
+	Node *f=head;
+	Node *s=head;
+	
+	while(f!=NULL && f->next!=NULL)
+	{
+		f=f->next->next;
+		s=s->next;
+		
+		if(f==s)
+		return true;
+	}
+	return false;
+	
+}
+//detect and remove
+ ListNode *detectCycle(ListNode *head) {
+        ListNode *f=head;
+        ListNode *s=head;
+        
+        while(f!=NULL && f->next!=NULL)
+        {
+            f=f->next->next;
+            s=s->next;
+            if(f==s)
+                break;
+        }
+        
+        if(f==NULL || f->next==NULL) return NULL;
+        
+            s=head;
+            while(f!=s)
+            {
+                f=f->next;
+                s=s->next;
+            }
+      //  cout<<f->val<<endl; start point
+            return s;
+        
+       
+    }
+
+//Reverse a linked list in group of size k
+
+Node *reverselinkedlistsizek(Node *head, int k)
+{
+	Node *a=head;
+	Node *b=head;
+	Node *c=NULL;
+	int cnt=k;
+	while(a!=NULL && cnt--)
+	{
+		b=a->next;
+		a->next=c;
+		c=a;
+		a=b;
+	}
+	if(head!=NULL)
+	head->next=reverselinkedlistsizek(b, k);
+	
+	return c;
+	
+//Check if palindrome
+	but extra space O(n) stack
+bool isPalindrome(Node *head)
+{
+    stack<int>s;
+    Node *h1=head;
+    while(h1!=NULL)
+    {
+        s.push(h1->data);
+        h1=h1->next;
+    }
+    while(head!=NULL)
+    {
+        if(s.top()!=head->data)
+        {
+            return 0;
+        }
+        s.pop();
+        head=head->next;
+    }
+    return 1;
+}
+//without using extra space
+
+Node *reverse(Node *head)
+{
+    Node *a=head;
+    Node *b=head;
+    Node *c=NULL;
+    while(a!=NULL)
+    {
+        b=a->next;
+        a->next=c;
+        c=a;
+        a=b;
+    }
+    return c;
+}
+	
+bool isPalindrome(Node *head)
+{
+    //Your code here
+    Node *f=head;
+    Node *s=head;
+    while(f!=NULL && f->next!=NULL)
+    {
+        f=f->next->next;
+        s=s->next;
+    }
+    f=head;
+    s=reverse(s);
+    while(s!=NULL)
+    {
+        if(f->data!=s->data)
+        {
+            return false;
+        }
+        f=f->next;
+        s=s->next;
+    }
+    return true;
+}
 
 
+//Roatate a linked list by k
+	Node* rotate(Node* head, int k)
+    {
+        // Your code here
+       Node *a=head;
+       
+       while(a->next!=NULL)
+       {
+           a=a->next;
+       }
+       a->next=head;
+       
+       Node *b;
+       while(k--)
+       {
+           b=head;
+           head=head->next;
+       }
+       
+       b->next=NULL;
+       return head;
+    }
 
 
 
