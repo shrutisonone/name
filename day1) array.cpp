@@ -1104,10 +1104,84 @@ bool isPalindrome(Node *head)
     }
 
 
+//Flattening of a linked list
+Node *mergeTwolist(Node *a, Node *b)
+{
+	Node *tmp=new Node(0);
+	Node *res=tmp;
+	
+	while(a!=NULL && b!=NULL)
+	{
+		if(a->data<b->data)
+		{
+			tmp->bottom=a;
+			tmp=tmp->bottom;
+			a=a->bottom;
+		}
+		else
+		{
+			tmp->bottom=b;
+			tmp=tmp->bottom;
+			b=b->bottom;
+		}
+		
+		if(a) tmp->bottom=a;
+		else tmp->bottom =b;
+		
+		return res->bottom;
+	}
+}
+Node *flatten(Node *root)
+{
+	if(root==NULL || root->next==NULL)
+	return root;
+	
+	root->next=flatten(root->next);
+	root->next=mergetwolist(root, root->next);
+	
+	return root;
+}
 
 
-
-
+//Clone a linked list
+	
+Node *copylist(Node *head)
+{
+	Node *itr=head;
+	Node *front=head;
+	
+	while(itr!=NULL)
+	{
+		front=itr->next;
+		Node *copy=new Node(itr->val);
+		itr->next=copy;
+		copy->next=front;
+		itr=front;
+	}
+	
+	itr=head;
+	while(itr!=NULL)
+	{
+		if(itr->random!=NULL)
+		{
+			itr->next->random=itr->random->next;
+		}
+		itr=itr->next->next;
+	}
+	
+	itr=head;
+	Node *res=new Node(0);
+	Node *copy=res;
+	
+	while(itr!=NULL)
+	{
+		front=it->next->next;
+		copy->next=itr->next;
+		copy=copy->next;
+		itr=front;
+	}
+	return res->next;
+}
 
 
 
