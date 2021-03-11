@@ -1184,8 +1184,124 @@ Node *copylist(Node *head)
 }
 
 
+//3 Sum 
+//Navie Approach is to have three for loop and then add condition and then add the satisfying triplets in output vector O(n^3);
+//Optimised is to use two loops and map to keep track then if there is remaining sum in the map then it adds upto the result
+//More Optimised is to traverse the array and use two pointer approach so that complexity is maintained at O(n)
+vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        sort(nums.begin(), nums.end());
+        vector<vector<int>>res;
+        
+        for(int i=0;i<(int)nums.size()-2;i++)
+        {
+            if(i==0 || (i>0 && nums[i]!=nums[i-1]))
+            {
+                int lo=i+1;
+                int hi=nums.size()-1;
+                int sum=0-nums[i];
+                
+                while(lo<hi){
+                    if(nums[lo]+nums[hi]==sum){
+                        vector<int>tmp;
+                        tmp.push_back(nums[i]);
+                        tmp.push_back(nums[lo]);
+                        tmp.push_back(nums[hi]);
+                        
+                        res.push_back(tmp);
+                        
+                        while(lo<hi && nums[lo]==nums[lo+1]) lo++;
+                        while(lo<hi && nums[hi]==nums[hi-1]) hi--;
+                        
+                        lo++;
+                        hi--;
+                    }
+                    else if(nums[lo]+nums[hi] < sum) lo++;
+                    else hi--;
+                }
+            }
+        }
+        return res;
+    }
+	
+//Trapping Rain Water Problem ------------max from right max from left min of those minus the current height
+//Navie Solution premax array and suffixmax array and then and then just take the min of two max and minus the value
+//stack based of same complexity 
+//Most Optimised is to use 2 pointer right max and left max to calculate the values
 
+int trappingWater(int arr[], int n){
 
+    // Your code here
+    int res=0;
+    int lmax=0;
+    int rmax=0;
+    
+    int l=0;
+    int h=n-1;
+    
+    while(l<=h)
+    {
+        if(arr[l]<arr[h])
+        {
+            if(arr[l]>lmax)
+            lmax=arr[l];
+            else
+            res+=lmax-arr[l];
+            
+            l++;
+        }
+        else
+        {
+            if(arr[h]>rmax)
+            rmax=arr[h];
+            else
+            res+=rmax-arr[h];
+            
+            h--;
+        }
+    }
+    return res;
+    
+}
+	
+// Remove Duplicates from Sorted Array
+	
+use two pointer approach if only the value is different then swap else no swap and increment j and keep i as track for the last unique
+ int removeDuplicates(vector<int>& nums) {
+        if(nums.size()==0)
+            return 0;
+        int i=0,j=0;
+        for( j=1;j<nums.size();j++)
+        {
+            if(nums[i]!=nums[j])
+            {
+                i++;
+                nums[i]=nums[j];
+            }
+        }
+        return i+1;
+    }
+	
+//Max consecutive ones
+if 0 cnt=0 else inceremnt count
+ int findMaxConsecutiveOnes(vector<int>& nums) {
+        int cnt=0;
+        int maxi=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]==0)
+            {
+                cnt=0;
+            }
+            else
+            {
+                cnt++;
+            }
+            maxi=max(maxi, cnt);
+        }
+        return maxi;
+    }
+	
 
 
 
