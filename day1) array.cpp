@@ -285,6 +285,62 @@ vector<vector<int>> generate(int numRows)
         }
         return r;
 }
+
+//Next Permutation
+1) next_permutation(begin(nums), end(nums));
+2) 1 3 5 4 2 --> 1 4 2 3 5
+	travserse from back and find A[i]<A[i+1]	{{{{{index1=1}}}}
+	travserse from back and find value greater than index1 value A[index2]>A[index1]    {{{{{index2=3}}}}
+	swap the value at index1 and index2 swap(A[index1], A[index2])
+		so the array would look like	1 4 5 3 2
+	reverse all the elements from index1 to the last element i.e. reverse(index1, nums.end())
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int testcase;
+    cin>>testcase;
+    while(testcase--)
+    {
+        int size;
+        cin>>size;
+        vector<int>nums(size);
+        for(int i=0;i<size;i++)
+        {
+            cin>>nums[i];
+        }
+        
+         int n=nums.size(), k, l;
+        for(k=n-2;k>=0;k--)
+        {
+            if(nums[k]<nums[k+1])
+                break;
+        }
+        
+        if(k<0)
+        {
+            reverse(nums.begin(), nums.end());
+        }
+        else
+        {
+            for(l=n-1;l>k;l--)
+            {
+                if(nums[l]>nums[k])
+                    break;
+            }
+            swap(nums[k], nums[l]);
+            reverse(nums.begin()+k+1, nums.end());
+        }
+        for(int i=0;i<n;i++)
+        {
+            cout<<nums[i]<<" ";
+        }
+    }
+}										    
+											     
+											     
+											     
 	
 //Inversion of an Array
 1) brute force approach first compare the elements that is arr[i]>arr[i+1] and then check for the indices i<i+1 it would be
