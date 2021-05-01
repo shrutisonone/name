@@ -619,8 +619,10 @@ int countpaths(int i, int j, int n, int m)
     return 1;
     if(i>=n || j>=m)
     return 0;
-    if(dp[i][j]!=-1) return dp[i][j];
-    else return countpaths(i+1, j, dp)+countpaths(i, j+1, dp);
+    if(dp[i][j]!=-1) 
+	    return dp[i][j];
+    else 
+	    return dp[i][j]=countpaths(i+1, j, dp)+countpaths(i, j+1, dp);
 }
 //Efficent using ncr 
 //Total blocks to be traversed is (n+m-2) and then 
