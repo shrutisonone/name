@@ -1359,6 +1359,59 @@ if 0 cnt=0 else inceremnt count
         }
         return maxi;
     }
+
+//minimum platform needed
+//just sort the arrival and departure array and then compare there trimmings
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int testcase;
+    cin>>testcase;
+    while(testcase--)
+    {
+        int size;
+        cin>>size;
+        vector<int>arr(size);
+        vector<int>dep(size);
+        for(int i=0;i<size;i++)
+        {
+            cin>>arr[i];
+        }
+        for(int i=0;i<size;i++)
+        {
+            cin>>dep[i];
+        }
+        
+        sort(arr.begin(), arr.end());
+        sort(dep.begin(), dep.end());
+        
+        int i=1;
+        int j=0;
+        int maxi=1;
+        int paltform=1;
+        
+        while(i<size && j<size)
+        {
+            if(arr[i]<=dep[j])
+            {
+                paltform++;
+                i++;
+            }
+            else if(arr[i]>dep[j])
+            {
+                paltform--;
+                j++;
+            }
+            maxi=max(maxi, paltform);
+            
+        }
+        cout<<maxi<<endl;
+    }
+    return 0;
+}
+
 	
 
 
