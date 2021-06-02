@@ -1340,6 +1340,8 @@ use two pointer approach if only the value is different then swap else no swap a
         return i+1;
     }
 	
+
+	
 //Max consecutive ones
 if 0 cnt=0 else inceremnt count
  int findMaxConsecutiveOnes(vector<int>& nums) {
@@ -1359,7 +1361,58 @@ if 0 cnt=0 else inceremnt count
         }
         return maxi;
     }
+//N Meetings in Room
+	struct meeting
+{
+    int start;
+    int end;
+    int pos;
+};
 
+bool comparator(struct meeting m1, struct meeting m2)
+{
+    if (m1.end < m2.end) return true; 
+    else if(m1.end > m2.end) return false; 
+    else if(m1.pos < m2.pos) return true; 
+    return false;
+}
+class Solution
+{
+    public:
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    int maxMeetings(int s[], int e[], int n)
+    {
+        // Your code here
+        struct meeting meet[n]; 
+        for(int i = 0;i<n;i++)
+        {
+            meet[i].start = s[i], meet[i].end = e[i], meet[i].pos = i+1; 
+        }
+        
+        sort(meet, meet+n, comparator); 
+        
+        vector<int> answer;
+        
+        int limit = meet[0].end; 
+        answer.push_back(meet[0].pos); 
+        
+        for(int i = 1;i<n;i++) 
+        {
+            if(meet[i].start > limit)
+            {
+                limit = meet[i].end; 
+                answer.push_back(meet[i].pos); 
+            }
+        }
+        // for(int i = 0;i<answer.size();i++) {
+        //     cout << answer[i] << " "; 
+        // }
+        return answer.size();
+    }
+};
+	
+	
 //minimum platform needed
 //just sort the arrival and departure array and then compare there trimmings
 #include<bits/stdc++.h>
@@ -1412,6 +1465,52 @@ int main()
     return 0;
 }
 
+//Job Sequencing Problem
+	
+bool comp( Job j1, Job j2)
+{
+    return (j1.profit>j2.profit);
+}
+
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr, arr+n, comp);
+        int maxi=arr[0].dead;
+        for(int i=1;i<n;i++)
+        {
+            maxi=max(maxi, arr[i].dead);
+        }
+        
+        int slot[maxi+1];
+        memset(slot, -1, sizeof(slot));
+        
+        int countjob=0;
+        int jobprofit=0;
+        
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=arr[i].dead;j>0;j--)
+            {
+                if(slot[j]==-1)
+                {
+                    slot[j]=i;
+                    countjob++;
+                    jobprofit+=arr[i].profit;
+                    break;
+                }
+            }
+        }
+        return {countjob, jobprofit};
+    } 
+};
+	
+	
 	
 
 
