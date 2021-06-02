@@ -1510,7 +1510,43 @@ class Solution
     } 
 };
 	
+//Fractional Knapsack value by weight ration P/W profit by weight greedy
 	
+bool comp(Item it1, Item it2)
+{
+    return (((double)it1.value/(double)it1.weight )> ((double)it2.value/(double)it2.weight));
+}
+class Solution
+{
+    public:
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        // Your code here
+        sort(arr, arr+n, comp);
+        int currweight=0;
+        double finalvalue=0.0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(currweight+arr[i].weight<=W)
+            {
+                currweight+=arr[i].weight;
+                finalvalue+=arr[i].value;
+            }
+            else
+            {
+                int remain=W-currweight;
+                finalvalue+=(arr[i].value/(double)arr[i].weight) *    ( (double)remain);
+                break;
+                
+            }
+        }
+        return finalvalue;
+    }
+        
+};
+
 	
 
 
