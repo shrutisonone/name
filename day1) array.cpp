@@ -1572,6 +1572,37 @@ int findmincoins(int V)
     cout<<"Min Number of Coins"<<ans.size()<<endl;
 }
 	
+//Subset Sums
+// 	Input:
+// N = 2
+// Arr = [2, 3]
+// Output:
+// 0 2 3 5
+// Explanation:
+// When no elements is taken then Sum = 0.
+// When only 2 is taken then Sum = 2.
+// When only 3 is taken then Sum = 3.
+// When element 2 and 3 are taken then 
+// Sum = 2+3 = 5.
+	
+	void func(int ind, int sum, vector<int>&arr,int N, vector<int>&SubsetSum)
+    {
+        if(ind==N)
+        {
+            SubsetSum.push_back(sum);
+            return ;
+        }
+        func(ind+1, sum+arr[ind], arr, N,  SubsetSum);
+        func(ind+1, sum, arr,N ,  SubsetSum);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int>SubsetSum;
+        func(0, 0, arr, N, SubsetSum);
+        sort(SubsetSum.begin(), SubsetSum.end());
+        return SubsetSum;
+    }
 	
 
 
