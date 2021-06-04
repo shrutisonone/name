@@ -1671,3 +1671,110 @@ public:
     }
 };
 
+//Combination Sum II
+// Each number in candidates may only be used once in the combination.
+// Input: candidates = [10,1,2,7,6,1,5], target = 8
+// Output: 
+// [
+//	 [1,1,6],
+//	 [1,2,5],
+//	 [1,7]
+//	 [2,6]
+// ]
+
+class Solution {
+    public: 
+    void findCombination(int ind, int target, vector<int> &arr, vector<vector<int>> &ans, vector<int>&ds) {
+        if(target==0) {
+            ans.push_back(ds);
+            return;
+        }        
+        for(int i = ind;i<arr.size();i++) {
+            if(i>ind && arr[i]==arr[i-1]) continue; 
+            if(arr[i]>target) break; 
+            ds.push_back(arr[i]);
+            findCombination(i+1, target - arr[i], arr, ans, ds); 
+            ds.pop_back(); 
+        }
+    }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> ans; 
+        vector<int> ds; 
+        findCombination(0, target, candidates, ans, ds); 
+        return ans; 
+    }
+};
+
+	
+//Palindrome Partitioning
+	
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string> > res;
+        vector<string> path;
+        func(0, s, path, res);
+        return res;
+    }
+    
+    void func(int index, string s, vector<string> &path, 
+              vector<vector<string> > &res) {
+        if(index == s.size()) {
+            res.push_back(path);
+            return;
+        }
+        for(int i = index; i < s.size(); ++i) {
+            if(isPalindrome(s, index, i)) {
+                path.push_back(s.substr(index, i - index + 1));
+                func(i+1, s, path, res);
+                path.pop_back();
+            }
+        }
+    }
+    
+    bool isPalindrome(string s, int start, int end) {
+        while(start <= end) {
+            if(s[start++] != s[end--])
+                return false;
+        }
+        return true;
+    }
+};
+	
+//Permutation Sequence
+	
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string> > res;
+        vector<string> path;
+        func(0, s, path, res);
+        return res;
+    }
+    
+    void func(int index, string s, vector<string> &path, 
+              vector<vector<string> > &res) {
+        if(index == s.size()) {
+            res.push_back(path);
+            return;
+        }
+        for(int i = index; i < s.size(); ++i) {
+            if(isPalindrome(s, index, i)) {
+                path.push_back(s.substr(index, i - index + 1));
+                func(i+1, s, path, res);
+                path.pop_back();
+            }
+        }
+    }
+    
+    bool isPalindrome(string s, int start, int end) {
+        while(start <= end) {
+            if(s[start++] != s[end--])
+                return false;
+        }
+        return true;
+    }
+};
+	
