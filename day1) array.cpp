@@ -2029,3 +2029,127 @@ int kthElement(int arr1[], int arr2[], int n, int m, int k)
         return 1; 
     }
     
+// Minimum Allocation of Pages
+int ispossible(vector<int>&arr, int currmidpagelimit, int student)
+{
+    int cnt=0;
+    int sumpagesallocated=0;
+    
+    for(int i=0;i<arr.size();i++)
+    {
+        if(sumpagesallocated+arr[i] > currmidpagelimit)
+        {
+            cnt++;
+            sumpagesallocated=arr[i];
+            
+            if(sumpagesallocated>currmidpagelimit)
+            return false;
+        }
+        else
+        {
+            sumpagesallocated+arr[i];
+        }
+    }
+    
+    if(cnt<students)
+    return true;
+    else
+    return false;
+}
+
+int books(vector<int>&arr, int k)
+{
+    int n=A.size();
+    
+    if(k>n)
+    return -1;
+    
+    int low=arr[0];
+    int high=0;
+    
+    for(int i=0;i<n;i++)
+    {
+        high=high+arr[i];
+        low=min(low, A[i]);
+    }
+    
+    int res=-1;
+    while(low<=high)
+    {
+        int mid=(high+low)>>1;
+        if(ispossible(arr, mid, k))
+        {
+            res=mid;
+            high=mid-1;
+        }
+        else
+        {
+            low=mid+1;
+        }
+    }
+    return low;
+    
+}
+
+//Aggressive Cows
+#include<bits/stdc++.h>
+using namespace std;
+
+bool ispossible(int arr[], int n, int cows, int minDist)
+{
+    int cntCows=1;
+    int lastPlacedCows=arr[0];
+    
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i]-lastPlacedCows >= minDist)
+        {
+            cntCows++;
+            lastPlacedCows=arr[i];
+        }
+    }
+    
+    if(cntCows>=cows)
+    return true;
+    else
+    return false;
+}
+
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n, cows;
+        cin>>n>>cows;
+        
+        int arr[n];
+        
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        sort(arr, arr+n);
+        
+        int low=1;
+        int high=arr[n-1] - arr[0];
+        
+        while(low<=high)
+        {
+            int mid=(high+low)/2;
+            
+            if(ispossible(arr, n, cows, mid))
+            {
+                low=mid+1;
+            }
+            else
+            {
+                high=mid-1;
+            }
+        }
+        cout<<high<<endl;
+    }
+    return 0;
+}
