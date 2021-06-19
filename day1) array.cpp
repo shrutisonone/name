@@ -1839,7 +1839,10 @@ public:
 //DIVIDE AND CONQUER
 	
 //BINARY SEARCH
-//N th root of a number
+//N th root of a number {Time complexity is N * log m*10^d} where if ans need to be found upto d decimal places and n can be reduce to log n by pow function technique of even and odd
+	//	     d	
+	// N log(M*10)
+	//	2
 
 	
 double multipy(double number, int n)  // instead of taking a for loop we can also using even odd method to take the power in O(log n)
@@ -1873,39 +1876,54 @@ double getNthRoot(int n, int m)
     cout<<pow(m, (double)(1.0/(double)n));
 }
 //Median in Rowwise and Columnwise sorted array
-	int countSmallerThanMid(vector<int> &row, int mid) {
-    int l = 0, h = row.size() - 1; 
-    while(l <= h) {
+// first binary search to find the value in binary matrix and then another binary search for finding smaller number in each row for that particular value on that matrix
+
+int countSmallerThanMid(vector<int> &row, int mid) 
+{
+    int l = 0;
+    int h = row.size() - 1; 
+    while(l <= h) 
+    {
         int md = (l + h) >> 1; 
-        if(row[md] <= mid) {
+        if(row[md] <= mid)
+	{
             l = md + 1;
         }
-        else {
+        else 
+	{
             h = md - 1;
         }
     }
     return l; 
 }
-int Solution::findMedian(vector<vector<int> > &A) {
+int Solution::findMedian(vector<vector<int> > &A) 
+{
     int low = INT_MIN;
     int high = INT_MAX; 
     int n = A.size();
     int m = A[0].size(); 
-    while(low <= high) {
+    while(low <= high)
+    {
         int mid = (low + high) >> 1; 
         int cnt = 0;
-        for(int i = 0;i<n;i++) {
+        for(int i = 0;i<n;i++)
+	{
             cnt += countSmallerThanMid(A[i], mid); 
         }
         
-        if(cnt <= (n * m) / 2) low = mid + 1; 
-        else high = mid - 1; 
+        if(cnt <= (n * m) / 2) 
+	 low = mid + 1; 
+        else 
+	 high = mid - 1; 
     }
     return low; 
 }
 	
 	
 //Single in array of duplicates
+// as array is sorted so there will be rule that one element will be on odd index and one element will be on even index so you just need to find left half
+// and next to the left half will be the ans and single number in array
+// high is put over size-2 cause of last element can be the single one
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
@@ -1929,7 +1947,7 @@ public:
 };
 	
 // Search Element in rotated sorted array
-
+//log n
 class Solution {
 public:
     int search(vector<int>& a, int target) {
@@ -1939,19 +1957,24 @@ public:
             if(a[mid] == target) return mid; 
             
             // the left side is sorted
-            if(a[low] <= a[mid]) {
-                if(target >= a[low] && target <= a[mid]) {
+            if(a[low] <= a[mid]) 
+	    {
+                if(target >= a[low] && target <= a[mid]) //if your element lies on left half or not
+		{
                     high = mid - 1; 
                 }
                 else {
                     low = mid + 1; 
                 }
             }
-            else {
-                if(target >= a[mid] && target <= a[high]) {
+            else //right side
+	    {
+                if(target >= a[mid] && target <= a[high])  // if your element lies on right half or not
+		{
                     low = mid + 1; 
                 }
-                else {
+                else 
+		{
                     high = mid - 1; 
                 }
             }
