@@ -2212,3 +2212,31 @@ int MyStack :: pop()
 }
 	
 	
+//Queue using array
+	
+void push(int x)
+{
+    if(cnt==n)
+    return -1;
+    
+    arr[rear%n]=x;
+    rear++;
+    cnt++;
+}
+
+int pop()
+{
+    if(cnt==0)
+    return -1;
+    arr[front%n]=-1;
+    front++;
+    cnt--;
+}
+
+int top()
+{
+    if(cnt==0)
+    return -1;
+    
+    return arr[front%n];
+}
