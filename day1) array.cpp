@@ -2303,4 +2303,72 @@ int pop()
     push(x);
     return y;
 }
+	
+	
+//Stack using Queue
+//Using Two queue int push put the new element in q2 then put all element of q1 to q2
+//then swap q1, q2
+//Push O(n), Pop O(1)
+queue<int>q1, q2;
+
+void push(int x)
+{
+    q2.push(x);
+    
+    while(!q1.empty())
+    {
+        q2.push(q1.top());
+        q1.pop();
+    }
+    
+    swap(q1, q2);
+}
+
+void pop()
+{
+    if(q1.empty())
+    {
+        return -1;
+    }
+    else
+    {
+        int x=q1.top();
+        q1.pop();
+        return x;
+    }
+}
+
+
+
+
+//Stack Using single queue
+queue<int>q1;
+
+void push(int x)
+{
+        q1.push(x);
+        int size=q1.size();
+        
+        for(int i=0;i<size-1;i++)
+        {
+            int tmp=q1.front();
+            q1.pop;
+            q1.push(tmp);
+        }
+}
+
+void pop()
+{
+    if(q1.empty())
+    {
+        return -1;
+    }
+    else
+    {
+        int res=q1.front();
+        q1.pop();
+        return res;
+    }
+}
+
 
