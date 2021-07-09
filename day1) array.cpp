@@ -2408,6 +2408,33 @@ int main()
     return 0;
 }
 	
-//
-
+//Next Greater Element II
+	
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        
+        int size=nums.size();
+        
+        vector<int>ans(size, -1);
+        stack<int>s;
+        
+        for(int i=2*size-1;i>=0;i--)
+        {
+            while(!s.empty() && nums[i%size]>=s.top())
+                s.pop();
+            
+            if(i<size)
+            {
+                if(!s.empty())
+                {
+                    ans[i%size]=s.top();
+                }
+            }
+            s.push(nums[i%size]);
+        }
+        
+        return ans;
+    }
+};
 
