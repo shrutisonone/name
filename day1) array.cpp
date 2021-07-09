@@ -2437,4 +2437,83 @@ public:
         return ans;
     }
 };
+	
+//LRU Cache
+	
+class node{
+    public :
+            int key;
+            int val;
+            node *next;
+            node *prev;
+            
+            node(int key1, int val1){
+                key=key1;
+                val=val1;
+            }
+};
+
+node *head=new node(-1, -1);
+node *tail=new node(-1, -1);
+
+int cap;
+unordered_map<int, node*>m;
+
+LRUcache(int capacity){
+    cap=capacity;
+    head->next=tail;
+    tail->prev=head;
+}
+
+void addnode(node *newnode)
+{
+    node *tmp=head->next;
+    newnode->next=tmp;
+    newnode->prev=head;
+    head->next=newnode-;
+    tmp->prev=newnode;
+}
+
+void deletenode(node *delnode)
+{
+    node *delprev=delnode->prev;
+    node *delnext=delnode-next;
+    delprev->next=delnext;
+    delnext->prev=delprev;
+}
+
+int get(int key1)
+{
+    if(mp.find(key1)!=mp.end())
+    {
+        node *resnode=mp[key1];
+        int res=resnode->val;
+        deletenode(resnode);
+        addnode(resnode);
+        mp[key1]=head->next;
+        return res;
+    }
+    return -1;
+}
+
+void put(int key1, int val1)
+{
+    if(mp.find(key1)!=mp.end())
+    {
+        node *existingnode=mp[key1];
+        mp.erase(key1);
+        deletenode(existingnode);
+    }
+    
+    if(mp.size()==cap)
+    {
+        mp.erase(tail->prev->key);
+        deletenode(tail->prev);
+    }
+    
+    addnode(new node(key1, val1));
+    mp[key1]=head->next;
+    
+}
+
 
