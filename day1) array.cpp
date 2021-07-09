@@ -2370,5 +2370,44 @@ void pop()
         return res;
     }
 }
+	
+//Next Greater Element
+	
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    stack<int>s;
+    vector<int>ans(n, -1);
+    for(int i=n-1;i>=0;i--)
+    {
+        
+        while(!s.empty() && arr[i]>s.top())
+        s.pop();
+        
+        if(!s.empty())
+        {
+            ans[i]=s.top();
+        }
+        
+        s.push(arr[i]);
+    }
+    for(int i=0;i<ans.size();i++)
+    {
+        cout<<ans[i]<<" ";
+    }
+    return 0;
+}
+	
+//
 
 
