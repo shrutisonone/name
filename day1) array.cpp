@@ -2637,3 +2637,34 @@ public:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
+
+ //Max Area Histogram
+//Two pass Approach finding right smaller then left smaller then [(rightsmaller - leftsmaller -1) * (width of the current bar)]
+// Single pass Approach
+int maxhistogram(vector<int>arr)
+{
+    stack<int>s;
+    int size=arr.size();
+    arr[size+1]=0;
+    int i=0;
+    int area=0;
+    int maxarea=-1;
+    
+    
+    while(i<size+1)
+    {
+        if(s.empty() || arr[i]>=arr[s.top()])
+        {
+            s.push(i++);
+        }
+        else
+        {
+            int tmp=s.top();
+            s.pop();
+            int area=arr[tmp]*(s.empty()?i:i-s.top()-1);
+            maxarea=max(area, maxarea);
+        }
+        
+       
+    }
+}
