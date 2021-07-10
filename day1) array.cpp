@@ -2639,7 +2639,45 @@ public:
  */
 
  //Max Area Histogram
-//Two pass Approach finding right smaller then left smaller then [(rightsmaller - leftsmaller -1) * (width of the current bar)]
+//Two pass Approach finding right smaller then left smaller then [(rightsmaller - leftsmaller +1) * (width of the current bar)]
+	
+int maxareahistogram(vector<int>&arr)
+{
+    int size=arr.size();
+    stack<int>s;
+    vector<int>nsr(size, 0);
+    for(int i=size-1;i>=0;i--)
+    {
+        while(!s.empty() && arr[i]<arr[s.top()])
+        s.pop();
+        
+        if(!s.empty())
+        nsr[i]=s.top()+1;
+        
+        s.push(i);
+    }
+    
+    s.clear();
+    vector<int>nsl(size, size-1);
+    for(int i=0;i<size;i++)
+    {
+        while(!s.empty() && arr[i]<arr[s.top()])
+        s.pop();
+        
+        if(!s.empty())
+        nsl[i]=s.top()-1;
+        
+        s.push(i);
+    }
+    
+    int maxarea=0;
+    for(int i=0;i<size;i++)
+    {
+        maxarea=max(maxarea, (arr[i]*(nsr[i]-nsl[i]+1)));
+    }
+    return maxarea;
+}
+
 // Single pass Approach
 int maxhistogram(vector<int>arr)
 {
