@@ -2706,3 +2706,125 @@ int maxhistogram(vector<int>arr)
        
     }
 }
+//Sliding Window Maximum
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        
+       int i=0;
+        int j=0;
+        deque<int>dq;
+        vector<int>ans;
+        int size=nums.size();
+        
+        while(j<size)
+        {
+            if(j-i+1<k)
+            {
+                while(dq.size()!=0 && dq.back()<nums[j])
+                {
+                    dq.pop_back();
+                }
+                dq.push_back(nums[j]);
+                j++;
+            }
+            else if(j-i+1==k)
+            {
+                
+                while(dq.size()!=0 && dq.back()<nums[j])
+                {
+                    dq.pop_back();
+                }
+                dq.push_back(nums[j]);
+                ans.push_back(dq.front());
+                
+                if(nums[i]==dq.front())
+                    dq.pop_front();
+                
+                i++;
+                j++;
+            }
+           
+            
+        }
+        
+        return ans;
+    }
+};
+	
+//Min From Stack
+class MinStack {
+    stack<long long int>s;
+    long long int mini;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        mini=INT_MAX;
+    }
+    
+    void push(int value) {
+        long long val = value;
+        if(s.empty())
+        {
+            s.push(val);
+            mini=val;
+        }
+        else
+        {
+            if(val>mini)
+            {
+                s.push(val);
+            }
+            else
+            {
+                s.push(2*val*1LL-mini);
+                mini=val;
+            }
+        }
+    }
+    
+    void pop() {
+        if(s.empty())
+        {
+            return ;
+        }
+        
+        long long int el=s.top();
+        s.pop();
+        
+        if(el < mini)
+        {
+            mini=2*mini-el;
+        }
+    }
+    
+    int top()
+    {
+        if(s.empty())
+        {
+            return -1;
+        }
+        
+        long long int el=s.top();
+        if(el<mini)
+            return mini;
+        else
+            return el;
+    }
+    
+    int getMin() {
+        if(s.empty())
+            return -1;
+        else
+            return mini;
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
